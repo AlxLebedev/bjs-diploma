@@ -5,35 +5,35 @@ class Profile {
         this.password = password;
     }
     createUser(callback) {
-        console.log(`Creating user ${this.username}`);
+        console.log(`Creating user ${this.name.firstName} (username: ${this.username})`);
         return ApiConnector.createUser({
             username: this.username,
             name: this.name,
             password: this.password
         }, (err, data) => {
-            console.log(`User ${this.name} is successfully created`);
+            console.log(`User ${this.name.firstName} (username: ${this.username}) is successfully created`);
             callback(err, data);
             });
     }
     performLogin(callback) {
         let username = this.username;
         let password = this.password;
-        console.log(`Authorizing user ${username}`);
+        console.log(`Authorizing user ${this.name.firstName} (username: ${this.username})`);
         return ApiConnector.performLogin({
             username,
             password
         }, (err, data) => {
-            console.log(`User ${username} is seccessfully authorized`);
+            console.log(`User ${this.name.firstName} (username: ${this.username}) is successfully authorized`);
             callback(err, data);
         });
     }
     addMoney({currency, amount}, callback) {
-        console.log(`Adding ${amount} of ${currency} to ${this.username}`);
+        console.log(`Adding ${amount} of ${currency} to ${this.name.firstName} (username: ${this.username})`);
         return ApiConnector.addMoney({
             currency,
             amount
         }, (err, data) => {
-            console.log(`${amount} of ${currency} is seccessfully added to ${this.username}`);
+            console.log(`${amount} of ${currency} is successfully added to ${this.name.firstName} (username: ${this.username})`);
             callback(err, data);
         });
     }
@@ -44,7 +44,7 @@ class Profile {
             targetCurrency,
             targetAmount
         }, (err, data) => {
-            console.log(`${fromCurrency} is seccessfully converted to ${targetAmount} ${targetCurrency} `);
+            console.log(`${fromCurrency} is successfully converted to ${targetAmount} ${targetCurrency} `);
             callback(err, data);
         });
     }
@@ -54,7 +54,7 @@ class Profile {
             to,
             amount
         }, (err, data) => {
-            console.log(`${amount} of Netcoins is seccessfully transfered to ${to}`);
+            console.log(`${amount} of Netcoins is successfully transfered to ${to}`);
             callback(err, data);
         });
     }
@@ -63,7 +63,7 @@ class Profile {
 function getStocks(callback) {
     console.log(`Getting stocks info`);
     return ApiConnector.getStocks((err, data) => {
-        console.log(`Stocks info is seccussfully got`);
+        console.log(`Stocks info is successfully got`);
         callback(err, data[99]);
     });
 }
@@ -83,16 +83,17 @@ function main() {
 
     ana.createUser((err, data) => {
         if (err) {
-            console.log(`Error: Failed to create this user`);
+            console.log(`Error: Failed to create this user: ${ana.name.firstName} (username: ${ana.username})`);
         } else {
-            console.log(`Ana is created`);
+            console.log(`User: ${ana.name.firstName} (username: ${ana.username}) is created`);
+            /*
             ana.performLogin((err, data) => {
                 if (err) {
-                    console.log(`Error: login failed`);
+                    console.log(`Error: login ${ana.name.firstName} (username: ${ana.username}) failed`);
                 } else {
-                    console.log(`Ana is autorized`);
+                    console.log(`${ana.name.firstName} (username: ${ana.username}) is autorized`);
                 }
-            });
+            });*/
         }
     });
 
@@ -105,19 +106,19 @@ function main() {
 
         steve.createUser((err, data) => {
             if (err) {
-                console.log(`Erroer: Failed to create this user`);
+                console.log(`Erroer: Failed to create this user: ${steve.name.firstName} (username: ${steve.username})`);
             } else {
-                console.log(`Steve is created`);
+                console.log(`User: ${steve.name.firstName} (username: ${steve.username}) is created`);
                 steve.performLogin((err, data) => {
                     if (err) {
-                        console.log(`Error: login failed`);
+                        console.log(`Error: login ${steve.name.firstName} (username: ${steve.username}) failed`);
                     } else {
-                        console.log(`Steve is authorized`);
+                        console.log(`${steve.name.firstName} (username: ${steve.username}) is authorized`);
                         steve.addMoney(wallet, (err, data) => {
                             if (err) {
-                                console.log(`Error: can not adding money to Steve`);
+                                console.log(`Error: can not adding money to ${steve.name.firstName} (username: ${steve.username})`);
                             } else {
-                                console.log(`Added 500000 EUR to Steve`);
+                                console.log(`Added 500000 EUR to ${steve.name.firstName} (username: ${steve.username})`);
                                 steve.convertMoney({fromCurrency: 'EUR', targetCurrency: 'NETCOIN', targetAmount: 36000}, (err, data) => {
                                     if (err) {
                                         console.log(`Error: can not apply convertation`);
