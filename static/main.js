@@ -125,7 +125,7 @@ function main() {
                                     } else {
                                         const walletAmount = stocksInfo.NETCOIN_EUR * wallet.amount;
                                         console.log(`Converted to coins `, {name: {firstName: 'Steve', lastName: 'Gadd'}, wallet: {amount: walletAmount, currency: 'NETCOIN'}, username: 'gaddband'});
-                                        steve.transferMoney({to: 'ana', amount: 36000}, (err, data) => {
+                                        steve.transferMoney({to: 'freeworld', amount: 36000}, (err, data) => {
                                             if (err) {
                                                 console.log(`Error: transfer 36000 NETCOINS failed`);
                                             } else {
